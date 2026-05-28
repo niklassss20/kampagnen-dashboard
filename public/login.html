@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login | Kampagnen ROI</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body class="auth-page">
+    <main class="auth-card fade-in">
+      <div class="brand-lockup">
+        <span class="brand-mark">K</span>
+        <div>
+          <h1>Kampagnen ROI</h1>
+          <p>Performance, Optimierung und Ad-Copy in einem Tool.</p>
+        </div>
+      </div>
+
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" data-mode="login">Login</button>
+        <button class="auth-tab" data-mode="register">Registrieren</button>
+      </div>
+
+      <form id="authForm" class="stack">
+        <label>
+          E-Mail
+          <input id="email" type="email" autocomplete="email" required placeholder="name@firma.de" />
+        </label>
+        <label>
+          Passwort
+          <input id="password" type="password" autocomplete="current-password" required minlength="6" placeholder="Mindestens 6 Zeichen" />
+        </label>
+        <button class="btn btn-primary" type="submit">Einloggen</button>
+        <p id="authMessage" class="form-message"></p>
+      </form>
+    </main>
+    <script src="/js/auth.js"></script>
+  </body>
+</html>

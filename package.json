@@ -1,0 +1,25 @@
+{
+  "name": "kampagnen-dashboard",
+  "version": "1.0.0",
+  "description": "Kampagnen-ROI-Dashboard mit Ad-Generator",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "better-sqlite3": "^11.9.1",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "openai": "^4.80.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.0.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
