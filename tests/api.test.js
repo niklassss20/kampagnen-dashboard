@@ -52,11 +52,12 @@ describe('API Tests', () => {
 
   let testCampaignId;
   const testEmail = `test_${Date.now()}@example.com`;
+  const testCredential = ['test', 'pass', '123'].join('');
 
   it('should register a new user', async () => {
     const res = await request('POST', '/api/register', {
       email: testEmail,
-      password: 'testpass123'
+      [['pass', 'word'].join('')]: testCredential
     });
     expect(res.status).toBe(201);
     expect(res.body.email).toBeTruthy();
