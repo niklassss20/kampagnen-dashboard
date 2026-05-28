@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kampagnen Dashboard</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <h2><span class="icon">📊</span> AdPilot</h2>
+        <span>Kampagnen-ROI-Dashboard</span>
+      </div>
+
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-view="dashboard" onclick="switchView('dashboard')">
+          <span class="nav-icon">📈</span> Dashboard
+        </button>
+        <button class="nav-item" data-view="campaigns" onclick="switchView('campaigns')">
+          <span class="nav-icon">🎯</span> Kampagnen
+        </button>
+        <button class="nav-item" data-view="adgen" onclick="switchView('adgen')">
+          <span class="nav-icon">✨</span> Ad-Generator
+        </button>
+        <button class="nav-item" data-view="optimization" onclick="switchView('optimization')">
+          <span class="nav-icon">⚡</span> Optimierung
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-info">
+          <div class="user-avatar" id="user-avatar">U</div>
+          <span class="user-email" id="user-email">user@mail.de</span>
+        </div>
+        <button class="nav-item" onclick="logout()">
+          <span class="nav-icon">🚪</span> Abmelden
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Dashboard View -->
+      <div class="view active" id="view-dashboard">
+        <div class="page-header">
+          <h1>Dashboard</h1>
+          <p>Übersicht über alle Kampagnen-Metriken</p>
+        </div>
+
+        <div class="metrics-grid" id="metrics-grid"></div>
+
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>Budget-Verteilung nach Plattform</h3>
+            <canvas id="chart-donut" width="400" height="280"></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Conversion-Rate pro Kampagne</h3>
+            <canvas id="chart-bar" width="400" height="280"></canvas>
+          </div>
+        </div>
+
+        <div class="table-card">
+          <div class="table-header">
+            <h3>Kampagnen-Übersicht</h3>
+          </div>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Plattform</th>
+                <th>Budget</th>
+                <th>CPC</th>
+                <th>ROAS</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="dashboard-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Campaigns View -->
+      <div class="view" id="view-campaigns">
+        <div class="page-header" style="display:flex;align-items:center;justify-content:space-between;">
+          <div>
+            <h1>Kampagnen</h1>
+            <p>Verwalte deine Werbekampagnen</p>
+          </div>
+          <button class="btn btn-primary" onclick="openCampaignModal()">+ Neue Kampagne</button>
+        </div>
+
+        <div class="table-card">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Plattform</th>
+                <th>Budget</th>
+                <th>Klicks</th>
+                <th>Conversions</th>
+                <th>Erstellt</th>
+                <th>Aktionen</th>
+              </tr>
+            </thead>
+            <tbody id="campaigns-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Ad Generator View -->
+      <div class="view" id="view-adgen">
+        <div class="page-header">
+          <h1>Ad-Generator</h1>
+          <p>KI-gestützte Werbeanzeigen erstellen</p>
+        </div>
+
+        <div class="agent-config">
+          <h3>Agent-Konfiguration</h3>
+          <form id="agent-form">
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="brand_name">Markenname</label>
+                <input type="text" id="brand_name" placeholder="z.B. TechFlow" required>
+              </div>
+              <div class="form-group">
+                <label for="industry">Branche</label>
+                <input type="text" id="industry" placeholder="z.B. SaaS / E-Commerce" required>
+              </div>
+              <div class="form-group">
+                <label for="target_audience">Zielgruppe</label>
+                <input type="text" id="target_audience" placeholder="z.B. Marketing-Manager, 25-45" required>
+              </div>
+              <div class="form-group">
+                <label for="tone_of_voice">Tone of Voice</label>
+                <select id="tone_of_voice" required>
+                  <option value="Professionell">Professionell</option>
+                  <option value="Locker">Locker</option>
+                  <option value="Provokant">Provokant</option>
+                  <option value="Luxuriös">Luxuriös</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="language">Sprache</label>
+                <select id="language">
+                  <option value="Deutsch">Deutsch</option>
+                  <option value="Englisch">Englisch</option>
+                </select>
+              </div>
+              <div class="form-group" style="display:flex;align-items:flex-end;">
+                <button type="submit" class="btn btn-secondary">Konfiguration speichern</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="generate-section">
+          <h3>Anzeige generieren</h3>
+          <div class="generate-row">
+            <div class="form-group">
+              <label for="gen-campaign">Kampagne auswählen</label>
+              <select id="gen-campaign" required>
+                <option value="">Kampagne wählen...</option>
+              </select>
+            </div>
+            <button class="btn btn-primary" id="generate-btn" onclick="generateAd()">
+              ✨ Ad generieren
+            </button>
+          </div>
+        </div>
+
+        <div class="ad-results" id="ad-results">
+          <h3>Generierte Anzeigen</h3>
+          <div class="ad-results-grid">
+            <div class="ad-variants" id="ad-variants"></div>
+            <div class="ad-image-section" id="ad-image-section"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Optimization View -->
+      <div class="view" id="view-optimization">
+        <div class="page-header">
+          <h1>Optimierung</h1>
+          <p>KI-gestützte Handlungsempfehlungen für deine Kampagnen</p>
+        </div>
+        <div class="optimization-cards" id="optimization-cards"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Campaign Modal -->
+  <div class="modal-overlay" id="campaign-modal">
+    <div class="modal">
+      <h2 id="modal-title">Neue Kampagne</h2>
+      <form id="campaign-form">
+        <input type="hidden" id="campaign-id">
+        <div class="form-grid">
+          <div class="form-group full">
+            <label for="campaign-name">Kampagnenname</label>
+            <input type="text" id="campaign-name" placeholder="z.B. Summer Sale 2024" required>
+          </div>
+          <div class="form-group">
+            <label for="campaign-platform">Plattform</label>
+            <select id="campaign-platform" required>
+              <option value="Meta">Meta</option>
+              <option value="Google">Google</option>
+              <option value="TikTok">TikTok</option>
+              <option value="LinkedIn">LinkedIn</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="campaign-budget">Budget (€)</label>
+            <input type="number" id="campaign-budget" placeholder="1000" min="0" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label for="campaign-clicks">Klicks</label>
+            <input type="number" id="campaign-clicks" placeholder="0" min="0" value="0">
+          </div>
+          <div class="form-group">
+            <label for="campaign-conversions">Conversions</label>
+            <input type="number" id="campaign-conversions" placeholder="0" min="0" value="0">
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" onclick="closeCampaignModal()">Abbrechen</button>
+          <button type="submit" class="btn btn-primary" id="modal-submit-btn">Erstellen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+
+  <script src="/js/app.js"></script>
+  <script src="/js/charts.js"></script>
+  <script src="/js/adgenerator.js"></script>
+</body>
+</html>

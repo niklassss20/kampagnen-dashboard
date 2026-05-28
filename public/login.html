@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kampagnen Dashboard — Login</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="login-page">
+    <div class="login-card">
+      <h1 id="auth-title">Anmelden</h1>
+      <p id="auth-subtitle">Melde dich an, um dein Dashboard zu sehen.</p>
+
+      <form id="auth-form">
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" placeholder="name@beispiel.de" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Passwort</label>
+          <input type="password" id="password" placeholder="Mindestens 6 Zeichen" required>
+        </div>
+        <div class="error-msg" id="error-msg"></div>
+        <button type="submit" class="btn btn-primary btn-full" id="auth-btn">Anmelden</button>
+      </form>
+
+      <div class="toggle-link">
+        <span id="toggle-text">Noch kein Konto?</span>
+        <a id="toggle-link" onclick="toggleAuthMode()">Registrieren</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+</body>
+</html>

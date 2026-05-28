@@ -1,0 +1,16 @@
+{
+  "name": "kampagnen-dashboard",
+  "version": "1.0.0",
+  "description": "Kampagnen-ROI-Dashboard mit KI-Ad-Generator",
+  "main": "server.js",
+  "scripts": {
+    "start": "bun server.js",
+    "test": "bun test tests/api.test.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "openai": "^4.77.0"
+  }
+}
